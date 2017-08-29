@@ -1,0 +1,12 @@
+{
+  "from": {
+    "name": "Cypherpunk Privacy",
+    "email": "hello@cypherpunk.com"
+  },
+  "sendgrid": {
+    "key": "sendgrid-api-key"
+  },
+  "mongo": {
+    "uri": "mongo-uri"
+  }
+}
