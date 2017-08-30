@@ -8,19 +8,24 @@ function validate(arg) {
   let value = { valid: false, error: false };
 
   // arg.to === email (string || array of strings)
-  if (!arg.to) { value.error = 'To field required'; }
+  if (Array.isArray(arg.to) && arg.to.length < 1) { value.error = 'To field required'; }
+  else if (!arg.to) { value.error = 'To field required'; }
+  if (value.error) { return value; }
 
   // subject must be a valid string
   if (!arg.subject) { value.error = 'Subject field required'; }
+  if (value.error) { return value; }
 
   // templateId must be a valid string
   if (!arg.templateId) { value.error = 'TemplateId required'; }
+  if (value.error) { return value; }
 
+  if (!value.error) { value.valid = true; }
   return value;
 }
 
 function mail(arg) {
-  // let valid = validate(arg);
+  let valid = validate(arg);
 
   let msg = {
     to: arg.to,
@@ -42,8 +47,8 @@ function mail(arg) {
 
   return mailer.send(msg);
 
-  // if (valid.valid) { return mailer.send(msg); }
-  // else { return Promise.reject(valid.error); }
+  if (valid.valid) { return mailer.send(msg); }
+  else { return Promise.reject(valid.error); }
 }
 
 module.exports = {
