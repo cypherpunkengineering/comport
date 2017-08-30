@@ -81,9 +81,14 @@ function testUsers() {
   ]);
 }
 
+function testUser() {
+  return Promise.resolve('ed@cypherpunk.com');
+}
+
 module.exports = {
   allUsers: allUsers,
   confirmedUsers: confirmedUsers,
   unconfirmedUsers: unconfirmedUsers,
-  testUsers: testUsers
+  testUsers: testUsers,
+  testUser: testUser
 }
