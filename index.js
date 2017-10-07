@@ -36,7 +36,7 @@ getUsers.then((users) => {
     // start timeout to send email
     setTimeout(() => {
       let token = encrypt(user);
-      let unsub = `https://api.cypherpunk.com/api/v1/emails/unsubscribe?email=${user}&token=${token}`;
+      let unsub = `https://cypherpunk.com/unsubscribe?email=${user}&token=${token}`;
       substitutions.unsubLink = unsub;
 
       // generate unsub token and url
