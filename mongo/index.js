@@ -82,7 +82,7 @@ function testUsers() {
 }
 
 function testUser() {
-  return Promise.resolve('ed@cypherpunk.com');
+  return Promise.resolve(['ed@cypherpunk.com']);
 }
 
 module.exports = {
@@ -91,4 +91,4 @@ module.exports = {
   unconfirmedUsers: unconfirmedUsers,
   testUsers: testUsers,
   testUser: testUser
-}
+};
