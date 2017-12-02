@@ -43,12 +43,10 @@ function mail(arg) {
     }
   };
 
-  console.log('Emailing: ', msg);
+  console.log("Emailing: " + arg.to);
 
-  // return mailer.send(msg);
-
-  if (valid.valid) { return mailer.send(msg); }
-  else { return Promise.reject(valid.error); }
+  // if (valid.valid) { return mailer.send(msg); }
+  // else { return Promise.reject(valid.error); }
 }
 
 module.exports = {

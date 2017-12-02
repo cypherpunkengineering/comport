@@ -3,6 +3,7 @@ const mongo = require('./mongo');
 const mailer = require('./mailer');
 const message = require('./message');
 const templates = require('./templates');
+const discountCodes = require('./discountCodes');
 
 
 // handle choose which users to send this mail to
@@ -26,10 +27,14 @@ let substitutions = message.substitutions;
 
 // send email to users
 getUsers.then((users) => {
-  console.log(users);
-
   let timer = 0;
+  let discountCounter = 0;
   users.forEach((user) => {
+    // scrap out cypherpunk emails
+    if (user.endsWith('cypherpunk.com')) { return; }
+    if (user.endsWith('uphyca.com')) { return; }
+    if (user.endsWith('slickage.com')) { return; }
+
     // space email out by 100ms
     timer = timer + 100;
 
@@ -38,6 +43,8 @@ getUsers.then((users) => {
       let token = encrypt(user);
       let unsub = `https://cypherpunk.com/unsubscribe?email=${user}&token=${token}`;
       substitutions.unsubLink = unsub;
+      substitutions.discountCode = discountCodes[discountCounter];
+      discountCounter++;
 
       // generate unsub token and url
       return mailer.mail({
@@ -56,6 +63,7 @@ getUsers.then((users) => {
 
 
 function encrypt(text){
+  if (!text) { return ''; }
   var cipher = crypto.createCipher('aes-256-ctr', 'jsucksballsformakingmedothisshit');
   var crypted = cipher.update(text,'utf8','hex');
   crypted += cipher.final('hex');
